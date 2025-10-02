@@ -1,0 +1,67 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo">
+        <i class="fa-solid fa-box"></i>
+      </div>
+      <h1>Welcome Back</h1>
+      <p>Sign in to your account to continue</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      @if (errorMessage) {
+      <div class="error-alert">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span>{{ errorMessage }}</span>
+      </div>
+      }
+
+      <app-form-field
+        label="Username"
+        type="text"
+        placeholder="Enter your username"
+        formControlName="username"
+        [required]="true"
+        [errorMessage]="
+          loginForm.get('username')?.invalid && loginForm.get('username')?.touched
+            ? 'Username is required'
+            : ''
+        "
+      ></app-form-field>
+
+      <app-form-field
+        label="Password"
+        type="password"
+        placeholder="Enter your password"
+        formControlName="password"
+        [required]="true"
+        [errorMessage]="
+          loginForm.get('password')?.invalid && loginForm.get('password')?.touched
+            ? 'Password is required'
+            : ''
+        "
+      ></app-form-field>
+
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        [disabled]="loginForm.invalid || loading"
+      >
+        @if (loading) {
+        <span class="btn-spinner"></span>
+        <span>Signing in...</span>
+        } @else {
+        <i class="fa-solid fa-sign-in-alt"></i>
+        <span>Sign In</span>
+        }
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p>Don't have an account?</p>
+      <button type="button" class="btn-link" (click)="goToRegister()">
+        Create an account
+      </button>
+    </div>
+  </div>
+</div>

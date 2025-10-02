@@ -1,6 +1,8 @@
+import { Categories } from './../categories/categories';
 import { Component, input, output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-left-sidebar',
@@ -20,9 +22,14 @@ export class LeftSidebar {
 
   items = [
     { routeLink: '/', icon: 'fa fa-home', label: 'Home' },
-    { routeLink: '/pages', icon: 'fa fa-file', label: 'Pages' },
-    { routeLink: '/products', icon: 'fa fa-box-open', label: 'Products' },
-    { routeLink: '/grid', icon: 'fa fa-box-open', label: 'Grid' },
-    { routeLink: '/todo-grid', icon: 'fa fa-box-open', label: 'TodoGrid' },
+    { routeLink: '/products', icon: 'fa fa-cart-shopping', label: 'Products' },
+    { routeLink: '/categories', icon: 'fa fa-box-open', label: 'Categories' },
+    { routeLink: '/settings', icon: 'fa fa-cog', label: 'Settings' },
   ];
+
+  constructor(public authService: AuthService) {}
+
+  logout(): void {
+    this.authService.logout();
+  }
 }

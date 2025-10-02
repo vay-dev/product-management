@@ -1,22 +1,108 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <app-form-field
-    type="input"
-    placeholder="enter your username"
-    formControlName="username"
-    [required]="true"
-  />
-  <app-form-field
-    type="input"
-    placeholder="enter your email"
-    formControlName="email"
-    label="email"
-    [required]="true"
-  />
-  <app-form-field
-    type="password"
-    placeholder="enter your username"
-    formControlName="password"
-    label="password"
-  />
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div class="home-page">
+  @if (loading) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading dashboard...</p>
+  </div>
+  } @else {
+  <!-- Header -->
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">Dashboard</h1>
+    <p class="dashboard-subtitle">Welcome back! Here's your overview</p>
+  </div>
+
+  <!-- Statistics Cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon primary">
+        <i class="fa-solid fa-box"></i>
+      </div>
+      <div class="stat-content">
+        <h3>Total Products</h3>
+        <p class="stat-value">{{ totalProducts }}</p>
+        <span class="stat-label">Items in inventory</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon secondary">
+        <i class="fa-solid fa-layer-group"></i>
+      </div>
+      <div class="stat-content">
+        <h3>Categories</h3>
+        <p class="stat-value">{{ totalCategories }}</p>
+        <span class="stat-label">Product categories</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon success">
+        <i class="fa-solid fa-dollar-sign"></i>
+      </div>
+      <div class="stat-content">
+        <h3>Total Value</h3>
+        <p class="stat-value">${{ totalValue.toFixed(2) }}</p>
+        <span class="stat-label">Inventory value</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon warning">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <div class="stat-content">
+        <h3>Low Stock</h3>
+        <p class="stat-value">{{ lowStockCount }}</p>
+        <span class="stat-label">Items below threshold</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <h2>Products by Category</h2>
+        <p>Distribution of products across categories</p>
+      </div>
+      <div class="chart-container">
+        @if (categoryChartData.labels && categoryChartData.labels.length > 0) {
+        <canvas
+          baseChart
+          [data]="categoryChartData"
+          [type]="'doughnut'"
+          [options]="categoryChartOptions"
+        ></canvas>
+        } @else {
+        <div class="no-data">
+          <i class="fa-solid fa-chart-pie"></i>
+          <p>No category data available</p>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <h2>Top Products by Price</h2>
+        <p>Highest priced items in inventory</p>
+      </div>
+      <div class="chart-container">
+        @if (priceChartData.labels && priceChartData.labels.length > 0) {
+        <canvas
+          baseChart
+          [data]="priceChartData"
+          [type]="'bar'"
+          [options]="priceChartOptions"
+        ></canvas>
+        } @else {
+        <div class="no-data">
+          <i class="fa-solid fa-chart-bar"></i>
+          <p>No product data available</p>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+  }
+</div>

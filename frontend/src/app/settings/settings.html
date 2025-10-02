@@ -1,0 +1,87 @@
+<div class="settings-page">
+  <div class="settings-header">
+    <h1 class="settings-title">Settings</h1>
+    <p class="settings-subtitle">Manage your application preferences</p>
+  </div>
+
+  <div class="settings-content">
+    <!-- Theme Settings Card -->
+    <div class="settings-card">
+      <div class="card-header">
+        <div class="header-icon">
+          <i class="fa-solid fa-palette"></i>
+        </div>
+        <div class="header-text">
+          <h2>Appearance</h2>
+          <p>Customize how the app looks on your device</p>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <!-- Theme Toggle -->
+        <div class="setting-item">
+          <div class="setting-info">
+            <div class="setting-icon">
+              @if (isDarkMode) {
+              <i class="fa-solid fa-moon"></i>
+              } @else {
+              <i class="fa-solid fa-sun"></i>
+              }
+            </div>
+            <div class="setting-text">
+              <h3>Dark Mode</h3>
+              <p>{{ isDarkMode ? 'Dark mode is currently enabled' : 'Light mode is currently enabled' }}</p>
+            </div>
+          </div>
+          <label class="theme-toggle">
+            <input
+              type="checkbox"
+              [checked]="isDarkMode"
+              (change)="toggleTheme()"
+            />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Settings Card -->
+    <div class="settings-card">
+      <div class="card-header">
+        <div class="header-icon">
+          <i class="fa-solid fa-gear"></i>
+        </div>
+        <div class="header-text">
+          <h2>General</h2>
+          <p>General application settings</p>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="setting-item">
+          <div class="setting-info">
+            <div class="setting-icon">
+              <i class="fa-solid fa-language"></i>
+            </div>
+            <div class="setting-text">
+              <h3>Language</h3>
+              <p>English (US)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <div class="setting-icon">
+              <i class="fa-solid fa-bell"></i>
+            </div>
+            <div class="setting-text">
+              <h3>Notifications</h3>
+              <p>Manage notification preferences</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

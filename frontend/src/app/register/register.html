@@ -1,0 +1,119 @@
+<div class="register-container">
+  <div class="register-card">
+    <div class="register-header">
+      <div class="logo">
+        <i class="fa-solid fa-user-plus"></i>
+      </div>
+      <h1>Create Account</h1>
+      <p>Join us to start managing your products</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      @if (errorMessage) {
+      <div class="error-alert">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span>{{ errorMessage }}</span>
+      </div>
+      }
+
+      <app-form-field
+        label="Username"
+        type="text"
+        placeholder="Choose a username"
+        formControlName="username"
+        [required]="true"
+        [errorMessage]="
+          registerForm.get('username')?.invalid && registerForm.get('username')?.touched
+            ? registerForm.get('username')?.errors?.['minlength']
+              ? 'Username must be at least 3 characters'
+              : 'Username is required'
+            : ''
+        "
+      ></app-form-field>
+
+      <app-form-field
+        label="Email"
+        type="email"
+        placeholder="Enter your email"
+        formControlName="email"
+        [required]="true"
+        [errorMessage]="
+          registerForm.get('email')?.invalid && registerForm.get('email')?.touched
+            ? registerForm.get('email')?.errors?.['email']
+              ? 'Please enter a valid email'
+              : 'Email is required'
+            : ''
+        "
+      ></app-form-field>
+
+      <app-form-field
+        label="Password"
+        type="password"
+        placeholder="Create a password"
+        formControlName="password"
+        [required]="true"
+        [errorMessage]="
+          registerForm.get('password')?.invalid && registerForm.get('password')?.touched
+            ? registerForm.get('password')?.errors?.['minlength']
+              ? 'Password must be at least 6 characters'
+              : 'Password is required'
+            : ''
+        "
+      ></app-form-field>
+
+      <app-form-field
+        label="Confirm Password"
+        type="password"
+        placeholder="Confirm your password"
+        formControlName="confirmPassword"
+        [required]="true"
+        [errorMessage]="
+          registerForm.get('confirmPassword')?.touched && !passwordsMatch
+            ? 'Passwords do not match'
+            : registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched
+            ? 'Please confirm your password'
+            : ''
+        "
+      ></app-form-field>
+
+      <!-- Profile Picture (Optional) -->
+      <div class="form-field-container">
+        <label class="field-label">Profile Picture (Optional)</label>
+        <div class="file-upload-container">
+          <input
+            type="file"
+            id="profilePicture"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            class="file-input"
+          />
+          <label for="profilePicture" class="file-upload-label">
+            <i class="fa-solid fa-cloud-upload-alt"></i>
+            <span>{{ selectedFile ? selectedFile.name : 'Choose profile picture' }}</span>
+          </label>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        [disabled]="registerForm.invalid || loading || !passwordsMatch"
+      >
+        @if (loading) {
+        <span class="btn-spinner"></span>
+        <span>Creating account...</span>
+        } @else {
+        <i class="fa-solid fa-user-plus"></i>
+        <span>Create Account</span>
+        }
+      </button>
+    </form>
+
+    <div class="register-footer">
+      <p>Already have an account?</p>
+      <button type="button" class="btn-link" (click)="goToLogin()">
+        Sign in here
+      </button>
+    </div>
+  </div>
+</div>

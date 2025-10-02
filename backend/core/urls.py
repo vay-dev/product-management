@@ -11,8 +11,6 @@ urlpatterns = [
     path('api/register/', include('user.urls')),
     path('api/login/', TokenObtainPairView.as_view(), name="get_token"),
     path('api/token/refresh/', TokenRefreshView.as_view(), name="refresh"),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="refresh"),
-
 ]
 
 if settings.DEBUG:

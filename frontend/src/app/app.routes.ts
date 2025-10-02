@@ -1,29 +1,43 @@
 import { Routes } from '@angular/router';
 import { Home } from './home/home';
-import { Pages } from './pages/pages';
 import { Products } from './products/products';
-import { GridDemoComponent } from './grid/grid';
-import { TodoGridComponent } from './todo-grid/todo-grid';
+import { Categories } from './categories/categories';
+import { Settings } from './settings/settings';
+import { Login } from './login/login';
+import { Register } from './register/register';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
-    path: '',
-    component: Home,
+    path: 'login',
+    component: Login,
   },
   {
-    path: 'pages',
-    component: Pages,
+    path: 'register',
+    component: Register,
+  },
+  {
+    path: '',
+    component: Home,
+    canActivate: [authGuard],
   },
   {
     path: 'products',
     component: Products,
+    canActivate: [authGuard],
   },
   {
-    path: 'grid',
-    component: GridDemoComponent,
+    path: 'categories',
+    component: Categories,
+    canActivate: [authGuard],
   },
   {
-    path: 'todo-grid',
-    component: TodoGridComponent,
+    path: 'settings',
+    component: Settings,
+    canActivate: [authGuard],
+  },
+  {
+    path: '**',
+    redirectTo: '',
   },
 ];

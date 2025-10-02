@@ -4,7 +4,7 @@
       <i class="fa fa-bars"></i>
     </button>
     @if (!isLeftSidebarCollapsed()) {
-    <div class="logo-text">App</div>
+    <div class="logo-text">ProductApp</div>
     <button class="btn-close" (click)="toggleState.emit(true)"><i class="fa fa-times"></i></button>}
   </div>
   <ul class="sidenav-nav">
@@ -14,7 +14,7 @@
         class="sidenav-nav-link"
         [routerLink]="item.routeLink"
         routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
+        [routerLinkActiveOptions]="{ exact: item.routeLink === '/' }"
       >
         <i class="sidenav-link-icon" [class]="item.icon"></i>
         @if (!isLeftSidebarCollapsed()) {
@@ -24,4 +24,34 @@
     </li>
     }
   </ul>
+
+  <!-- User Section & Logout -->
+  <div class="sidebar-footer">
+    @if (authService.currentUser()) {
+    <div class="user-section">
+      @if (!isLeftSidebarCollapsed()) {
+      <div class="user-info">
+        <div class="user-avatar">
+          @if (authService.currentUser()?.profile_picture) {
+          <img [src]="authService.currentUser()?.profile_picture" [alt]="authService.currentUser()?.username" />
+          } @else {
+          <i class="fa fa-user-circle"></i>
+          }
+        </div>
+        <div class="user-details">
+          <p class="user-name">{{ authService.currentUser()?.username }}</p>
+          <p class="user-email">{{ authService.currentUser()?.email }}</p>
+        </div>
+      </div>
+      }
+    </div>
+    }
+
+    <button class="logout-btn" (click)="logout()" title="Logout">
+      <i class="fa fa-sign-out-alt"></i>
+      @if (!isLeftSidebarCollapsed()) {
+      <span>Logout</span>
+      }
+    </button>
+  </div>
 </div>
