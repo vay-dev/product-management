@@ -1,0 +1,5 @@
+<app-left-sidebar
+  [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()"
+  (toggleState)="acceptState($event)"
+/>
+<app-main [sidebarState]="isLeftSidebarCollapsed()" />

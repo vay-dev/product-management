@@ -1,0 +1,45 @@
+@switch (type()) { @case ('input') {
+<input
+  #inputEl
+  class="form-control"
+  [placeholder]="placeholder()"
+  [value]="innerValue"
+  (input)="updateValue(inputEl.value)"
+  (blur)="onTouched()"
+/>
+} @case ('checkbox') {
+<input
+  #checkEl
+  type="checkbox"
+  [checked]="innerValue"
+  (change)="updateValue(checkEl.checked)"
+  (blur)="onTouched()"
+/>
+} @case ('select') {
+<select #selectEl [value]="innerValue" (change)="updateValue(selectEl.value)" (blur)="onTouched()">
+  @for (option of options(); track option.id) {
+  <option [value]="option.value">{{ option.value }}</option>
+  }
+</select>
+} @case ('password') {
+<div class="input-wrapper">
+  <input
+    #passEl
+    [type]="isPasswordVisible() ? 'text' : 'password'"
+    [value]="innerValue"
+    [placeholder]="placeholder()"
+    (input)="updateValue(passEl.value)"
+    (blur)="onTouched()"
+  />
+  <span (click)="isPasswordVisible.set(!isPasswordVisible())">
+    {{ isPasswordVisible() ? 'hide' : 'show' }}
+  </span>
+</div>
+} @case ('text-area') {
+<textarea
+  #textEl
+  [value]="innerValue"
+  (input)="updateValue(textEl.value)"
+  (blur)="onTouched()"
+></textarea>
+} }

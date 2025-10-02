@@ -1,0 +1,21 @@
+<div class="ag-grid-heading">
+  <button class="btn btn-pirmary" (click)="exportAsCsv()">Export</button>
+  <button (click)="resizeToFit()" class="btn btn-pirmary" (click)="exportAsCsv()">
+    resize to fit
+  </button>
+  <input
+    type="text"
+    placeholder="Search todos..."
+    [(ngModel)]="searchKey"
+    class="form-control mb-3"
+  />
+</div>
+<ag-grid-angular
+  #agGrid
+  class="ag-theme-quartz"
+  style="width: 100%; height: 500px"
+  [rowData]="todos | searchTodos : searchKey"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [animateRows]="true"
+></ag-grid-angular>

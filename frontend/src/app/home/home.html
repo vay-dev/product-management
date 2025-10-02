@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <app-form-field
+    type="input"
+    placeholder="enter your username"
+    formControlName="username"
+    [required]="true"
+  />
+  <app-form-field
+    type="input"
+    placeholder="enter your email"
+    formControlName="email"
+    label="email"
+    [required]="true"
+  />
+  <app-form-field
+    type="password"
+    placeholder="enter your username"
+    formControlName="password"
+    label="password"
+  />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
